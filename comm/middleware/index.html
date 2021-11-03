@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/comm/middleware/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1175,6 +1175,8 @@
         
           
         
+          
+        
       
       
         
@@ -1220,6 +1222,20 @@
     <li class="md-nav__item">
       <a href="../../cases/chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cases/pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1456,6 +1472,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1517,7 +1535,7 @@ Pense no browser e na WWW, por exemplo: o quanto você sabe sobre as páginas es
 Podemos quebrar esta transparência total em várias transparências mais simples: <strong>Acesso</strong>, <strong>Localização</strong>, <strong>Relocação</strong>,
 <strong>Migração</strong>, <strong>Replicação</strong>, e <strong>Falha</strong>.
 Vejamos cada uma destas separadamente.</p>
-<h6>Transparência de Acesso</h6>
+<h6 id="transparencia-de-acesso">Transparência de Acesso</h6>
 <details class="info inline end"><summary>Transparência de Acesso</summary><ul>
 <li>como se apresenta</li>
 <li>representação de dados<ul>
@@ -1619,7 +1637,7 @@ No caso específico das strings, pense em um programa escrito em linguagem C e q
 Enquanto em C uma string é uma sequência de bytes imprimíveis terminadas por um <code>\0</code>, em Java uma string é uma classe que encapsula uma sequência de chars, sendo que cada <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/overview.html">char é um código 16 bits</a> representativo de um código Unicode<sup id="fnref:stringjava"><a class="footnote-ref" href="#fn:stringjava">4</a></sup>.
 Como transferir strings entre duas plataformas?  Não fazê-lo? Simplificar a string Java?  Estender a string C?<br />
 Para se tentar obter transparência de acesso, é importante que se use <strong>padrões</strong> implementados em múltiplas arquiteturas, <strong>abertos</strong>  e bem conhecidos, com <strong>interfaces bem definidas</strong>.</p>
-<h6>Transparência de Localização</h6>
+<h6 id="transparencia-de-localizacao">Transparência de Localização</h6>
 <details class="info inline end"><summary>Transparência de localização</summary><ul>
 <li>onde está o objeto</li>
 <li>latência<ul>
@@ -1633,7 +1651,7 @@ Para se tentar obter transparência de acesso, é importante que se use <strong>
 </details>
 <p>A transparência de localização diz respeito a onde está o objeto acessado pela aplicação, seja um BD, página Web ou serviço de echo: pouco importa ao usuário, se está dentro da mesma máquina de onde executa o acesso, se na sala ao lado ou em um servidor do outro lado do globo, desde que o serviço seja provido de forma rápida e confiável.
 A esta transparência é essencial uma boa distribuição do serviço, sobre uma rede com baixa latência, ou o uso de técnicas que permitam esconder a latência.</p>
-<h6>Escondendo a Latência</h6>
+<h6 id="escondendo-a-latencia">Escondendo a Latência</h6>
 <p>Para se esconder a latência, várias táticas são utilizáveis:</p>
 <ul>
 <li><em>Caching</em> de dados<ul>
@@ -1666,7 +1684,7 @@ Como exemplo do segundo, pense em aplicativos que mantém os dados em celulares 
 <li>Mantenha cópias de dados em múltiplos lugares.</li>
 <li>Atualize dados de acordo com necessidade (e.g., cache do navegador, com código do google.com sendo atualizado a cada 4 dias)</li>
 </ul>
-<h6>Transparência de Relocação</h6>
+<h6 id="transparencia-de-relocacao">Transparência de Relocação</h6>
 <details class="info inline end"><summary>Transparência de relocação</summary><ul>
 <li>como se movimenta</li>
 <li>visto por clientes</li>
@@ -1685,7 +1703,7 @@ Se implementadas corretamente, as técnicas que entregam transparência de local
 </ul>
 </li>
 </ul>
-<h6>Transparência de Migração</h6>
+<h6 id="transparencia-de-migracao">Transparência de Migração</h6>
 <details class="info inline end"><summary>Transparência de migração</summary><ul>
 <li>como se movimenta</li>
 <li>visto por si mesmo</li>
@@ -1697,7 +1715,7 @@ Uma das formas de se implementar esta propriedade é através da migração prov
 Veja o exemplo do VMotion da VMware.</p>
 <p><img alt="http://hyaking.com/wp-content/uploads/2017/01/Hyaking_Image_vmware-vmotion.jpg" src="../../images/vmotion.jpg" /></p>
 <p>Na verdade, a movimentação neste cenário, é uma cópia da máquina virtual. Uma vez que a cópia esteja próxima do fim, a imagem original é congelada, a cópia concluída, e há um chaveamento na rede para se direcionar toda comunicação para nova cópia. O máquina original é então descartada.</p>
-<h6>Transparência de Replicação</h6>
+<h6 id="transparencia-de-replicacao">Transparência de Replicação</h6>
 <details class="info inline end"><summary>Transparência de replicação</summary><ul>
 <li>redundância</li>
 <li>visto por clientes</li>
@@ -1739,7 +1757,7 @@ Replicação de Máquinas de Estados é muito custosa e por isso faz-se um esfor
 Isto porquê manter múltiplas cópias <span class="arithmatex">\(\Rightarrow\)</span> sincronização <span class="arithmatex">\(\Rightarrow\)</span> custos. 
 Se houver mudanças frequentes nos dados, tal custo precisa ser pago também frequentemente.
 Mitigações incluem uso de réplicas temporárias, protocolos de invalidação de cache, contratação de redes com mais largura de banda  e menor latência, sendo que estes últimos esbarram em limitações financeiras e físicas.</p>
-<h6>Transparência de Concorrência</h6>
+<h6 id="transparencia-de-concorrencia">Transparência de Concorrência</h6>
 <details class="info inline end"><summary>Transparência de concorrência</summary><ul>
 <li>obliviedade a outros serviços</li>
 <li>visto por clientes</li>
@@ -1754,7 +1772,7 @@ Para se tornar viável, contudo, uma mesma instância deve servir múltiplos cli
 <li><img alt="https://cdn.jjude.com/mt-models.png" src="../../images/multitenancy_models.png" /></li>
 </ul>
 <p>Esta transparência está fundamentalmente ligada à escalabilidade, isto é, à adequação dos <em>pool</em> de recursos às demandas dos clientes: se mais clientes estão presentes, então aumente a quantidade de servidores (<em>scale up</em>) e separe as cargas (<em>sharding</em>); se menos clientes estão presentes, então desligue algumas máquinas (<em>scale down</em>) e consolide recursos.</p>
-<h6>Desafios para se obter transparência</h6>
+<h6 id="desafios-para-se-obter-transparencia">Desafios para se obter transparência</h6>
 <p>Apesar de desejáveis, as transparência discutidas são difíceis de se conseguir, principalmente se em conjunto.
 Isto porquê, do <strong>ponto de vista de usuários</strong> espalhados pelo globo, atrás de redes heterogêneas e com possibilidade de erros, acontecerão atrasos e perdas na comunicação, denunciando a distribuição.</p>
 <p>Do <strong>ponto de vista do desenvolvedor</strong>, é preciso tomar decisões baseado em premissas ligadas à realidade da rede. Por exemplo, se uma requisição não foi respondida, quanto tempo um cliente deve esperar antes de reenviá-la, possivelmente para outro servidor, sem incorrer em risco significativo da requisição ser processada duas vezes? A resposta para esta pergunta é muito mais complicada do que pode parecer.</p>
@@ -1879,10 +1897,10 @@ Para entender o porquê, vejamos algumas premissas normalmente assumidas sobre a
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       

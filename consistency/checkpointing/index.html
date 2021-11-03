@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/consistency/checkpointing/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1074,6 +1074,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1241,6 +1243,8 @@
         
           
         
+          
+        
       
       
         
@@ -1286,6 +1290,20 @@
     <li class="md-nav__item">
       <a href="../../cases/chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cases/pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1522,6 +1540,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1611,7 +1631,7 @@ Isto é, suponha que uma série de erros aconteceram no sistema, e que não é p
 Neste cenário, o sistema precisa agir para ou avançar para um novo estado, livre de erros, ou retroceder a um estado anterior, correto.</p>
 <p>Voltar a um estado correto parece ser a solução mais fácil, mas pare isto é preciso garantir a informação sobre estados anteriores seja recuperável. </p>
 <h3 id="log-recuperavel">Log Recuperável</h3>
-<h6>Replicação</h6>
+<h6 id="replicacao">Replicação</h6>
 <p>Como garantir que o log poderá ser lido para recuperar o processo?</p>
 <p><img alt="" src="../../images/08-23.png" /></p>
 <ul>
@@ -1620,8 +1640,8 @@ Neste cenário, o sistema precisa agir para ou avançar para um novo estado, liv
 <li>Um bom outro estragado?</li>
 <li>Ambos estragados?</li>
 </ul>
-<h6>Blocos de paridade</h6>
-<h6>Erasure Coding</h6>
+<h6 id="blocos-de-paridade">Blocos de paridade</h6>
+<h6 id="erasure-coding">Erasure Coding</h6>
 <p>Blocos de paridade</p>
 <p><img alt="https://support.huawei.com/enterprise/br/doc/EDOC1100067966/c131d3be/erasure-code-nm-protection" src="../../images/erasure-coding-diagram0.png" /></p>
 <p>Cálculo da paridade</p>
@@ -1657,7 +1677,7 @@ Neste cenário, o sistema precisa agir para ou avançar para um novo estado, liv
 <li>Se o processo <span class="arithmatex">\(p_i\)</span> é revertido para o estado <span class="arithmatex">\(C_i^{m-1}\)</span>, então o <span class="arithmatex">\(p_j\)</span> tem que ser revertido pelo menos até <span class="arithmatex">\(C_j^{n-1}\)</span>, ou incluiria mensagens ainda não enviadas por <span class="arithmatex">\(p_i\)</span>.</li>
 </ul>
 <p>Como implementar a recuperação?</p>
-<h6># Caso patológico</h6>
+<h6 id="caso-patologico"># Caso patológico</h6>
 <ul>
 <li><span class="arithmatex">\(p_i\)</span> e <span class="arithmatex">\(p_j\)</span> no estado inicial (<span class="arithmatex">\(C_i^0, C_j^0\)</span>)</li>
 <li><span class="arithmatex">\(p_i\)</span> manda mensagens para <span class="arithmatex">\(p_j\)</span> (<span class="arithmatex">\(C_i^1 \rightarrow C_j^1\)</span>)</li>
@@ -1674,7 +1694,7 @@ Neste cenário, o sistema precisa agir para ou avançar para um novo estado, liv
 <p><img alt="" src="../../images/08-25.png" /></p>
 <h4 id="checkpointing-coordenado">Checkpointing coordenado</h4>
 <p>Processos se coordenam por troca de mensagem para executar checkpointing "simultaneamente".</p>
-<h6>Bloqueio em duas fases</h6>
+<h6 id="bloqueio-em-duas-fases">Bloqueio em duas fases</h6>
 <ul>
 <li>Um coordenador faz multicast da mensagem "checkpoint-request"</li>
 <li>Quando um participante recebe "checkpoint-request"<ul>
@@ -1701,7 +1721,7 @@ Neste cenário, o sistema precisa agir para ou avançar para um novo estado, liv
 </ul>
 </li>
 </ul>
-<h6>Chandy-Lamport</h6>
+<h6 id="chandy-lamport">Chandy-Lamport</h6>
 <ul>
 <li>Não interfere na aplicação</li>
 <li>
@@ -1730,7 +1750,7 @@ Neste cenário, o sistema precisa agir para ou avançar para um novo estado, liv
 <li>O estado global consiste dos snapshots + estado em cada um dos canais.</li>
 <li>Exige canais FIFO</li>
 </ul>
-<h6>Message Logging</h6>
+<h6 id="message-logging">Message Logging</h6>
 <p>Em vez de checkpoints frequentes, crie um log da comunicação e o re-execute a partir do último checkpoint.</p>
 <p><strong>Ideia básica:</strong>   </p>
 <p>A computação é determinada pela troca de mensagens (eventos não determinísticos). 
@@ -1847,10 +1867,10 @@ Ao se enviar a mesma mensagem a partir de um certo estado, a computação desenc
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       

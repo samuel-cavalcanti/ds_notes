@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/cases/zookeeper/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1165,6 +1165,8 @@
         
           
         
+          
+        
       
       
         
@@ -1210,6 +1212,20 @@
     <li class="md-nav__item">
       <a href="../chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1456,6 +1472,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1487,7 +1505,8 @@
   <h1 id="coordenacao-zookeeper">Coordenação: Zookeeper</h1>
 <p>O <a href="http://zookeeper.apache.org/">Zookeeper</a> foi criado para coordenar as ações dos componentes de sistemas distribuídos, porquê sistemas distribuídos são como zoológicos, com animais de diversas espécies, sendo obrigados a conviver de forma anti-natural.</p>
 <p><img alt="http://zookeeper.apache.org/" src="../../images/zklogo.jpeg" /></p>
-<h6>Visão Geral</h6>
+<h6 id="visao-geral">Visão Geral</h6>
+<p>De acordo com os criadores</p>
 <div class="admonition quote">
 <p class="admonition-title">O quê?</p>
 <p>ZooKeeper is a <strong>centralized</strong> service for maintaining <strong>configuration</strong> information, <strong>naming</strong>, providing distributed <strong>synchronization</strong>, and providing <strong>group services</strong>. All of these kinds of services are used in some form or another by <strong>distributed applications</strong>. Each time they are implemented there is a lot of work that goes into fixing the bugs and race conditions that are inevitable. Because of the difficulty of implementing these kinds of services, applications initially usually skimp on them, which make them brittle in the presence of change and difficult to manage. Even when done correctly, different implementations of these services lead to management <strong>complexity</strong> when the applications are deployed.</p>
@@ -1535,7 +1554,7 @@ As diferentes curvas mostram diferentes configurações do sistema, indo de 3 a 
 <p><img alt="" src="../../images/zkperfRW_3_2.jpg" /></p>
 <p>Em geral, todas as configurações apresentam melhor desempenho quando há uma percentagem maior de leituras.
 Mas observe como as curvas se invertem, se focando primeiro na curva para 3 servidores: quando todas as operações são de escrita, e portanto precisam passar pelo protocolo de difusão atômica, esta curva apresenta os melhores resultados. Isto ocorre porquê o <em>overhead</em> de executar o protocolo é mais baixo entre 3 servidores que entre 13. Em compensação, quando temos mais leituras, que não precisam de sincronização, então ter mais servidores é mais vantajoso pois sobre menos carga de trabalho para cada servidor.</p>
-<h6>Laboratório</h6>
+<h6 id="laboratorio">Laboratório</h6>
 <p>Instale o Zookeeper em sua máquina seguindo estas instruções.</p>
 <ul>
 <li>Baixe: <code>wget https://downloads.apache.org/zookeeper/zookeeper-3.7.0/apache-zookeeper-3.7.0-bin.tar.gz</code> </li>
@@ -1562,7 +1581,7 @@ Vejamos alguns exemplos básicos.</p>
 <li><code>stat /teste</code> - mostra medatados do arquivo, por exemplo versão, e <em>timestamps</em></li>
 <li><code>set -v V /teste lili</code> - faz um update condiciona, isto é, atualiza o conteúdo do arquivo se a versão do mesmo, como mostrada pelo comando <code>stat</code>, for igual a <code>V</code></li>
 </ul>
-<h6>Nós Efêmeros e Watches</h6>
+<h6 id="nos-efemeros-e-watches">Nós Efêmeros e Watches</h6>
 <p>O Zookeeper tem muitas funcionalidades interessantes, mas chamarei a atenção a duas que são particularmente úteis:</p>
 <p>Nós <strong>efêmeros</strong>, criados com a flag <code>-e</code>, p.e., <code>create -ef /teste/noefemero efemero</code>, são automaticamente destruídos quando o cliente que os criou se desconecta do servidor. E <strong>watches</strong> avisam ao cliente quando uma operação em um certo znode ou em seus filhos acontece. Para ser avisado quando os dados de um nó forem alterados, use a opção <code>-w</code> do get, por exemplo, <code>get -w /teste</code>. Para monitorar alterações no conjunto de filhos de um nó, use <code>-w</code> no <code>ls</code>, por exemplo, <code>ls -w /teste</code>.</p>
 <div class="admonition exercise">
@@ -1583,7 +1602,7 @@ Vejamos alguns exemplos básicos.</p>
 <li>Reconecte o primeiro cliente</li>
 </ul>
 </div>
-<h6>Cluster tolerante a falhas</h6>
+<h6 id="cluster-tolerante-a-falhas">Cluster tolerante a falhas</h6>
 <p>Observe que você está executando o Zookeeper em apenas um nó, ou seja, não há tolerância a falhas alguma aqui.
 Para tolerar falhas, você precisa de um cluster multi-nós, mesmo que seja em uma única máquina. 
 Neste caso, crie três arquivos de configuração, <code>zoo1.cfg</code>, <code>zoo2.cfg</code> e <code>zoo3.cfg</code>. O arquivo <code>zooX.cfg</code>, onde <code>1 &lt;= X &lt;= 3</code>, fica assim:</p>
@@ -1604,7 +1623,7 @@ Neste caso, crie três arquivos de configuração, <code>zoo1.cfg</code>, <code>
 <li><code>./bin/zkServer.sh start conf/zooX.cfg</code></li>
 </ul>
 <p>Ainda que tenha três servidores executando em uma mesma máquina, seu cluster parará de funcionar se a máquina parar de funcionar. O ideal é que cada servidor execute em uma máquina distinta.</p>
-<h6>Receitas</h6>
+<h6 id="receitas">Receitas</h6>
 <p>É possível resolver diversos problemas encontrados em sistemas distribuídos usando-se o ZooKeeper, por exemplo, o problema de descoberta de processos.</p>
 <div class="admonition example">
 <p class="admonition-title">Rendezvous</p>
@@ -1740,10 +1759,10 @@ Monitore o zNode. Se ele sumir, eleja outro líder.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       

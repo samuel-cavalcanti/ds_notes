@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/comm/rpc/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -431,6 +431,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1226,6 +1228,8 @@
         
           
         
+          
+        
       
       
         
@@ -1271,6 +1275,20 @@
     <li class="md-nav__item">
       <a href="../../cases/chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cases/pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1507,6 +1525,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1657,7 +1677,7 @@ Por exemplo, se o ponteiro for para o primeiro elemento de uma lista, o que deve
 É muito fácil ver que esta abordagem pode se tornar inviável rapidamente. Quando for o caso, Java permite marcar objetos como <strong>remotos</strong> e, em vez de serializar este objeto e enviar para o servidor, envia informação suficiente para que o servidor possa invocar métodos em tal objeto no cliente, tornando nebulosa a definição de quem é quem.</p>
 <p><img alt="RPC" src="../../drawings/rpc.drawio-8.svg" /></p>
 <p>Outros fatores também trabalham contra a transparência para o desenvolvedor.</p>
-<h6>Descoberta de Serviços</h6>
+<h6 id="descoberta-de-servicos">Descoberta de Serviços</h6>
 <p>Por exemplo, mesmo que o socket seja ocultado, ele ainda existe e precisa de informações sobre <strong>onde se conectar</strong> (endereço e porta), que de alguma forma deve ser passada para o framework de RPC.
 Esta informação pode ser configurada <em>a priori</em> por um administrador de sistemas, mas requer atualizações sempre que a localização do serviço for alterada ou novos servidores adicionados.
 Mais interessante seria um mecanismo que permitisse uma indireção para o serviço; o próprio DNS pode ser uma opção inicial, mas um serviço dedicado pode ser mais apropriado, pois permite descobrir serviços e não apenas servidores.</p>
@@ -1666,35 +1686,35 @@ Esta abordagem tem seus próprios problemas, como por exemplo determinar <strong
 E como determinar qual serviço acessar, caso hajam <strong>múltiplas opções de servidores</strong>.</p>
 <p><img alt="RPC" src="../../drawings/rpc.drawio-3.svg" /></p>
 <p>Apesar dos problemas, <strong>páginas amarelas</strong> foram usadas em abordagens muito mais recentes para descobertas de serviços, por exemplo <a href="https://en.wikipedia.org/wiki/Web_Services_Discovery">Web Services Discovery</a>, que permite a descoberta de Web Services em escala global, e <a href="https://docs.oracle.com/javase/7/docs/technotes/tools/solaris/rmiregistry.html">Java Remote Object Registry</a> que permite a descoberta de objetos remotos Java.</p>
-<h6>Tratamento de Exceções</h6>
+<h6 id="tratamento-de-excecoes">Tratamento de Exceções</h6>
 <p>Uma vez que a invocação é remota, há sempre o risco de problemas de comunicação entre cliente e servidor.
 Logo, é necessária a introdução de código para tratamento de erros deste tipo, o que absolutamente não era necessário no caso do código centralizado.
 Assim, o que era um simples <code>x = substring(a,3,c);</code> passa para algo assim (em uma linguagem fictícia):</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">-2</span><span class="p">;</span>
-<span class="n">try</span> <span class="p">{</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">substring</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>
-<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">CommunicationFailureException</span> <span class="n">cfe</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">log_error</span><span class="p">(</span><span class="s">&quot;Como pode substring falhar? Desespero!!!&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">;</span><span class="w"></span>
+<span class="n">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">substring</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">c</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="p">(</span><span class="n">CommunicationFailureException</span><span class="w"> </span><span class="n">cfe</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">log_error</span><span class="p">(</span><span class="s">&quot;Como pode substring falhar? Desespero!!!&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">-2</span><span class="p">)</span>
-    <span class="n">system_exit</span><span class="p">(</span><span class="mi">-2</span><span class="p">)</span>
-<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">-1</span><span class="p">)</span>
-    <span class="c1">//não achou</span>
-<span class="k">else</span>
-    <span class="c1">//achou na posição x</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">system_exit</span><span class="p">(</span><span class="mi">-2</span><span class="p">)</span><span class="w"></span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//não achou</span>
+<span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//achou na posição x</span>
 </code></pre></div>
 </td></tr></table>
 <p>O que nos leva novamente ao ponto sobre não haver transparência total em sistemas distribuídos... e esta falta de transparência pode ser muito mais complicada do que simplesmente adicionar try e catch ao seu código.</p>
@@ -1702,7 +1722,7 @@ Assim, o que era um simples <code>x = substring(a,3,c);</code> passa para algo a
 Se esta fosse uma operacão local, cada invocação da operação corresponderia a exatamente uma execução da operação, na ausência de falhas.
 No caso de falhas, se o processo quebra como um todo, no seu reinício, pode-se identificar se a operação foi ou não executada e aplicar ações corretivas.
 Mas e no caso remoto?</p>
-<h6>Reexecuções</h6>
+<h6 id="reexecucoes">Reexecuções</h6>
 <p>No caso da operação distribuída, se o servidor quebra, isso levará a um erro ser percebido do lado do cliente como uma <strong>falha na conexão</strong>.
 Se o cliente havia invocado uma operação mas percebeu o erro antes de receber uma confirmação de sua execução, isto pode indicar que:</p>
 <ul>
@@ -1742,7 +1762,7 @@ Mas ela não pode ser repetida, então a alternativa é tornar as operações <a
 </ul>
 </div>
 <p>Infelizmente não é trivial programar para idempotência, principalmente se o servidor for acessado concorrentemente por múltiplos clientes, tornando seu estado uam região crítica.</p>
-<h6>Concorrência no servidor</h6>
+<h6 id="concorrencia-no-servidor">Concorrência no servidor</h6>
 <p>É importante notar que um servidor não está obrigado a atender requisições de somente um cliente.
 Logo, se múltiplos clientes acessam o mesmo servidor, o estado do servidor será "compartilhado" pelos vários clientes e passos são necessários para que o comportamento no acesso deste estado seja coerente com a especificação.</p>
 <p>Pense por exemplo em um servidor que conta o número de acessos feitos por clientes.
@@ -1910,10 +1930,10 @@ Nas seções seguintes veremos como este requisito pode ser relaxado, permitindo
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       

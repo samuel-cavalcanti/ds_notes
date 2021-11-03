@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/arch/p2p/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -540,6 +540,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1212,6 +1214,8 @@
         
           
         
+          
+        
       
       
         
@@ -1257,6 +1261,20 @@
     <li class="md-nav__item">
       <a href="../../cases/chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cases/pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1493,6 +1511,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1553,7 +1573,7 @@ Nestas redes são executados diversos algoritmos, como de descoberta de nós, ro
 Isto também implica que a <strong>otimização da rota lógica não necessariamente leva à otimização da rota física</strong>.</p>
 <p><a href="https://pt.wikipedia.org/wiki/Peer-to-peer#/media/Ficheiro:Overlay_p2p.jpg"><img alt="Por Gustavo Lacerda - UFRJ, Domínio público" src="../../images/overlay.jpg" /></a></p>
 <p>Dependendo em como esta rede é organizada (ou não), a mesma é classificada como <strong>estruturada</strong> ou <strong>não-estruturada</strong>.</p>
-<h6>Rede Não-Estruturada</h6>
+<h6 id="rede-nao-estruturada">Rede Não-Estruturada</h6>
 <p>Se a rede sobreposta é construída de forma aleatória, por exemplo deixando os nós se conectarem apenas aos vizinhos na rede no ponto em que se conectaram inicialmente, então esta é denominada uma rede <strong>não-estruturada</strong>. 
 A figura a seguir é um exemplo que se percebe que nós tem graus diferentes de conectividade e que não estão particularmente organizados em nenhuma topologia.</p>
 <p><a href="http://gossple2.irisa.fr/~akermarr/LSDS-EPFL-unstructured.pdf"><img alt="Não-estruturada" src="../../images/unstructured.png" /></a></p>
@@ -1561,7 +1581,7 @@ A figura a seguir é um exemplo que se percebe que nós tem graus diferentes de 
 Inserções de dados podem ser feitas muito rapidamente, armazenando-os no primeiro nó disponível encontrado.
 Os objetos amarelo e vermelho foram inseridos desta forma, e copiados em nós próximos para tolerar a falha de alguns hosts sem perder os dados.
 Buscas, contudo, terão que vasculhar a rede usando algoritmos como <strong>busca em largura</strong>, <strong>busca em profundidade</strong> ou <strong>caminhada aleatória</strong> (resposta probabilística).</p>
-<h6>Rede Estruturada</h6>
+<h6 id="rede-estruturada">Rede Estruturada</h6>
 <p>Se as conexões são construídas e mantidas de forma a gerar uma <strong>topologia bem definida</strong>, chamamos esta rede de <strong>estruturada</strong>.
 Nesta rede, a inserção de nós requer a propagação desta informação para outros nós e a atualização das conexões para manter a estrutura.
 A estrutura geralmente serve ao propósito de associar os nós aos dados de uma forma planejada. 
@@ -1575,7 +1595,7 @@ A estrutura da rede permite que tal roteamento seja feito eficientemente, no ní
 <p>Como outro exemplo considere uma rede em que os nós armazenam informações sobre os dados de uma certa área geográfica e que nós vizinhos na rede sejam aqueles responsáveis por áreas que se tocam.</p>
 <p><img alt="" src="../../images/02-08.png" /></p>
 <p>Neste exemplo, para se acessar os dados de um certo ponto no mapa, basta rotear a requisição para o vizinho mais próximo do ponto; necessariamente a requisição chegará ao nó correto.</p>
-<h6>De não estruturada a estruturada</h6>
+<h6 id="de-nao-estruturada-a-estruturada">De não estruturada a estruturada</h6>
 <p>A seguinte tabela resume as diferenças entre os dois tipos de redes sobrepostas.</p>
 <table>
 <thead>
@@ -1688,7 +1708,7 @@ Tanto <span class="arithmatex">\(K\)</span> quanto <span class="arithmatex">\(V\
 <li>Como dividir a carga entre hosts? É preciso balancear a carga para que um lado da rede não se torne mais importante que o outro e para não levar a uma hierarquização entre os nós.</li>
 <li>Como rotear requisições para o host correto? Uma vez que os dados devem ser particionados entre hosts para garantir escalabilidade, como encontrar o nó onde determinado dado está or deveria estar?</li>
 </ul>
-<h6>Identificação</h6>
+<h6 id="identificacao">Identificação</h6>
 <p>A identificação de objetos precisa ser facilmente <strong>determinável pela aplicação</strong> para permitir a recuperação precisa dos dados. 
 Por exemplo, podemos usar o identificador único CPF como chave para dados de pessoas e dividir seus possíveis valores em faixas, atribuídas a diferentes nós do sistema.</p>
 <ul>
@@ -1705,7 +1725,7 @@ Para resolver estes três problemas, recorremos a uma abordagem usada na literat
 <li>Seja <span class="arithmatex">\(h\)</span> uma função <em>hash</em> criptográfica</li>
 <li>O objeto identificado por <span class="arithmatex">\(i\)</span> na aplicação será identificado por <span class="arithmatex">\(k = h(i)\)</span> dentro da DHT.</li>
 </ul>
-<h6>Divisão da carga</h6>
+<h6 id="divisao-da-carga">Divisão da carga</h6>
 <p>Se usarmos, por exemplo, MD5, é fato que <span class="arithmatex">\(k\)</span> tem distribuição uniforme no espaço de 0 a <span class="arithmatex">\(2^{160}-1\)</span> possíveis valores.
 Para dividirmos os dados entre os hosts também uniformemente, distribua os valores entre os hosts em função de <span class="arithmatex">\(k\)</span>.
 Alguns exemplos de divisão são:</p>
@@ -1715,7 +1735,7 @@ Alguns exemplos de divisão são:</p>
 <li>dados <span class="arithmatex">\(2^n\)</span> hosts, atribua ao host <span class="arithmatex">\(0 &lt; x &lt; 2^n-1\)</span> os dados cujas chaves terminem com o valor <span class="arithmatex">\(x\)</span>.</li>
 </ul>
 <p>São várias as formas de se dividir os dados e estas estão intimamente ligadas à rede sobreposta que se pretende montar e a como o roteamento será feito.</p>
-<h6>Roteamento</h6>
+<h6 id="roteamento">Roteamento</h6>
 <p>Para estudar o desafio do roteamento, nas seções seguintes estudaremos o Chord, um sistema P2P que surgiu no meio acadêmico mas cujo design influenciou fortemente a indústria no desenvolvimento dos bancos dados distribuídos NOSQL, como Cassandra, Dynamo, e Redis.</p>
 <div class="footnote">
 <hr />
@@ -1816,10 +1836,10 @@ Alguns exemplos de divisão são:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       

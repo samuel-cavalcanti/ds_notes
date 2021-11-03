@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://lasarojc.github.io/ds_notes/consistency/consistency_models/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1020,6 +1020,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1212,6 +1214,8 @@
         
           
         
+          
+        
       
       
         
@@ -1257,6 +1261,20 @@
     <li class="md-nav__item">
       <a href="../../cases/chord/" class="md-nav__link">
         Chord
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cases/pastry/" class="md-nav__link">
+        Pastry
       </a>
     </li>
   
@@ -1493,6 +1511,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
@@ -1554,14 +1574,14 @@ Bailis et. al<sup id="fnref:highlyavailabletransactions"><a class="footnote-ref"
 </details>
 <p><a href="http://www.vldb.org/pvldb/vol7/p181-bailis.pdf"><img alt="" src="../../images/consistency-models2.png" /></a></p>
 <p><a href="https://arxiv.org/abs/1512.00168"><img alt="" src="../../images/consistency-models.png" /></a></p>
-<h6>Um banco de dados <em>to rule them all</em></h6>
+<h6 id="um-banco-de-dados-to-rule-them-all">Um banco de dados <em>to rule them all</em></h6>
 <p>Para simplificar a discussão sobre modelos de consistência, usaremos um banco de dados para falar tanto sobre modelos para operações simples quanto para grupos de operações (transações), uma vez que bancos de dados são algo com o qual você já tem alguma familiaridade.</p>
 <p>Neste contexto, um banco de dados pode ser pensado, de uma forma bem simplista, como uma tabela do tipo chave/valor.
 As entradas desta tabela podem ser ser pensadas linhas de uma relação de um banco de dados ou como posições na memória de um computador (variáveis), e são manipuladas por comandos como <strong><span class="arithmatex">\(X\)</span> recebe 'João'</strong> e <strong>qual o valor de <span class="arithmatex">\(Y\)</span></strong>.
 Obviamente que <span class="arithmatex">\(X\)</span> e <span class="arithmatex">\(Y\)</span> não precisam ser declarados antes da primeira escrita, assim como chaves primárias não são declaradas até que sejam usadas, e que o valor associado a uma variável pode ter várias partes, como <strong>"{'Endereço':'Av 1, número 2', 'Profissão':'Computeiro'}</strong> e cada parte um tipo. 
 Essa á uma simplificação dos bancos de dados, mas uma simplificação poderosa.</p>
 <p><img alt="Single DB" src="../../drawings/disdb.drawio-0.svg" /></p>
-<h6>Expectativa x Realidade</h6>
+<h6 id="expectativa-x-realidade">Expectativa x Realidade</h6>
 <p>Quando um processo se comunica com um banco de dados, ele o faz com certas expectativas quanto ao funcionamento deste banco.
 Por exemplo, ao escrever um dados no banco, independentemente de como o banco é implementado, o cliente geralmente espera que as escritas aconteçam na ordem em que as disparou e que, ao ler uma variável, lhe seja retornado o "último" valor escrito na mesma.</p>
 <p><img alt="Single DB" src="../../drawings/disdb.drawio-7.svg" /></p>
@@ -1594,7 +1614,7 @@ Para entender como isso afeta a implementação, considere a execução seguinte
 Neste caso, a operação de atualização de <span class="arithmatex">\(Y\)</span> para 20, que já havia terminado do ponto de vista do cliente de baixo, ainda não havia sido propagada para a réplica de cima, o que fez com que a leitura iniciada depois não visse o valor 20.</p>
 <p><img alt="Não linearabilidade" src="../../drawings/disdb.drawio-5.svg" /></p>
 <p>Para impedir execuções como esta, os processos devem coordenar suas ações, o que tem um custo em termos do desempenho do sistema, forçando a comunidade a buscar por modelos em que o custo seja menor mas que as garantias dadas ainda sejam úteis.</p>
-<h6>Consistência Forte e Fraca</h6>
+<h6 id="consistencia-forte-e-fraca">Consistência Forte e Fraca</h6>
 <p>O modelo de consistência descrito acima é denominado <strong>linearabilidade</strong>, também conhecida como <strong>consistência forte</strong>, e se implementar este modelo é difícil, a comunidade procura por modelos mais fáceis mas também úteis.
 Em particular, recentemente os bancos de dados NOSQL se difundiram com a promessa de que podem ser úteis sem incorrer nos custos de coordenação, garantindo a chamada consistência <strong><em>eventual</em></strong>, em que há a garantia de que atualizações estarão disponíveis a partir de algum momento para a leitura em todas as réplicas/partições, mas não há uma definição clara de quando isso ocorrerá.<sup id="fnref:eventual"><a class="footnote-ref" href="#fn:eventual">3</a></sup></p>
 <p><img alt="eventual meme" src="../../images/eventual-meme0.png" /></p>
@@ -1741,10 +1761,10 @@ Reveja o exemplo seguinte, em que a operação de atualização de <span class="
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.suggest", "search.highlight", "navigation.indexes"], "translations": {"clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "search.config.lang": "pt", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Buscar", "search.result.placeholder": "Digite para iniciar a busca", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.term.missing": "Ausente", "select.version.title": "Selecione a vers\u00e3o"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.1/dist/mermaid.min.js"></script>
       
